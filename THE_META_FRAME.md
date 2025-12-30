@@ -26,8 +26,7 @@ From these three, all higher structures emerge.
 
 ## 1.3 The Mission
 
-You are not building a ticketing system.  
-You are building a civilization infrastructure:
+We are building a civilization infrastructure:
 - A new truth standard
 - A new economic rail
 - A new identity substrate
