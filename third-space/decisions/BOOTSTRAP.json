@@ -1,0 +1,19 @@
+{
+  "id": "DEC-BOOTSTRAP-001",
+  "state": "HOLD",
+  "scope": "SYSTEM",
+  "created_at": "2026-01-02T04:30:00Z",
+  "inputs": {
+    "human_intent": "Bootstrap Third Space status check registration",
+    "system_data_refs": ["third-space/schema/decision.schema.json"],
+    "constraints": ["No execution"]
+  },
+  "invariants": ["Schema validation only"],
+  "outputs": {
+    "decision": "No-op",
+    "bounded_next_actions": []
+  },
+  "signatures": {
+    "human_governor": "MM"
+  }
+}
