@@ -1,0 +1,51 @@
+name: Third Space Commit Decisions
+
+on:
+  push:
+    branches: ["IAMMAI"]
+    paths:
+      - "third-space/decisions/**.json"
+
+permissions:
+  contents: write
+
+jobs:
+  append-ledger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Append merged decisions to Third Space ledger
+        run: |
+          set -e
+          python - <<'PY'
+          import json, glob, datetime, os
+
+          ledger = "third-space/decision-ledger.log"
+          os.makedirs(os.path.dirname(ledger), exist_ok=True)
+
+          # Append only decisions that are in DECIDE or COMMIT state
+          for path in glob.glob("third-space/decisions/*.json"):
+              if path.endswith("TEMPLATE.json"):
+                  continue
+              with open(path,"r",encoding="utf-8") as f:
+                  d = json.load(f)
+              if d.get("state") not in ("DECIDE","COMMIT"):
+                  continue
+
+              line = (
+                  f"{datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')} | "
+                  f"DECISION_ID={d.get('id')} | STATE={d.get('state')} | SCOPE={d.get('scope')} | "
+                  f"HUMAN={d.get('signatures',{}).get('human_governor','UNKNOWN')}"
+              )
+              with open(ledger,"a",encoding="utf-8") as out:
+                  out.write(line + "\n")
+          PY
+
+      - name: Commit decision ledger append
+        run: |
+          git config user.name "third-space"
+          git config user.email "ledger@local"
+          git add third-space/decision-ledger.log
+          git commit -m "Third Space: append decision ledger" || exit 0
+          git push
