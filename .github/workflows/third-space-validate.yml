@@ -1,0 +1,57 @@
+name: Third Space Validate Decisions
+
+on:
+  pull_request:
+    paths:
+      - "third-space/decisions/**.json"
+      - "third-space/schema/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install jsonschema
+        run: |
+          python -m pip install --upgrade pip
+          pip install jsonschema
+
+      - name: Validate decision JSON against schema
+        run: |
+          set -e
+          python - <<'PY'
+          import json, glob, sys
+          from jsonschema import Draft202012Validator
+
+          with open("third-space/schema/decision.schema.json","r",encoding="utf-8") as f:
+              schema = json.load(f)
+
+          v = Draft202012Validator(schema)
+
+          files = glob.glob("third-space/decisions/*.json")
+          if not files:
+              print("No decision files found; nothing to validate.")
+              sys.exit(0)
+
+          bad = False
+          for path in files:
+              if path.endswith("TEMPLATE.json"):
+                  continue
+              with open(path,"r",encoding="utf-8") as f:
+                  data = json.load(f)
+              errors = sorted(v.iter_errors(data), key=lambda e: e.path)
+              if errors:
+                  bad = True
+                  print(f"\nINVALID: {path}")
+                  for e in errors:
+                      print(" -", e.message)
+              else:
+                  print(f"OK: {path}")
+
+          if bad:
+              sys.exit(1)
+          PY
