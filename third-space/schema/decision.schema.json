@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "third-space.decision.schema.v1",
+  "title": "Third Space Decision Artifact v1",
+  "type": "object",
+  "required": ["id", "state", "scope", "inputs", "invariants", "outputs", "created_at"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[A-Z0-9-]{6,64}$" },
+    "state": { "type": "string", "enum": ["HOLD", "DECIDE", "COMMIT"] },
+    "scope": { "type": "string", "minLength": 3, "maxLength": 64 },
+    "created_at": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "inputs": {
+      "type": "object",
+      "required": ["human_intent", "system_data_refs", "constraints"],
+      "properties": {
+        "human_intent": { "type": "string", "minLength": 3, "maxLength": 2000 },
+        "system_data_refs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3, "maxLength": 200 }
+        },
+        "constraints": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3, "maxLength": 200 }
+        }
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 3, "maxLength": 200 }
+    },
+    "outputs": {
+      "type": "object",
+      "required": ["decision", "bounded_next_actions"],
+      "properties": {
+        "decision": { "type": "string", "minLength": 3, "maxLength": 2000 },
+        "bounded_next_actions": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3, "maxLength": 200 }
+        }
+      }
+    },
+    "signatures": {
+      "type": "object",
+      "properties": {
+        "human_governor": { "type": "string", "minLength": 2, "maxLength": 128 }
+      }
+    }
+  }
+}
