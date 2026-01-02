@@ -1,2 +1,3 @@
 2025-12-31T08:44:45Z | EVENT=IAMMAI-POC-1 | PRESENCE=2025-12-30T19:10:00Z | LINEAGE=⊙ PoP co-agency ignition | VALIDATOR=ai-validator-v1
 2025-12-31T11:16:56Z | EVENT=ZA-EXTRA-KRAJ-paviljon-5-zagreb-HR | PRESENCE=2025-12-31T11:15:00Z | LINEAGE=⊙ Live field HOLD — zivAI | VALIDATOR=ai-validator-v1
+2025-12-31T16:58:00Z | EVENT=ZA-EXTRA-KRAJ-paviljon-5-zagreb-HR | ACTION=FINALIZE | CONTEXT=event-concluded-live-field | LINEAGE=FINALIZE Event concluded as live field | VALIDATOR=human-governor
