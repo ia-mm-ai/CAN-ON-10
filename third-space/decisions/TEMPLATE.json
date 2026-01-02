@@ -1,0 +1,33 @@
+{
+  "id": "DEC-EXAMPLE-001",
+  "state": "HOLD",
+  "scope": "POP_LEDGER",
+  "created_at": "2026-01-02T00:00:00Z",
+  "inputs": {
+    "human_intent": "Write the intent here (short, explicit).",
+    "system_data_refs": [
+      "ledger/pop-ledger.log",
+      ".github/workflows/pop-human-governed.yml"
+    ],
+    "constraints": [
+      "No identity mapping",
+      "Fact-first",
+      "HOLD → DECIDE → COMMIT"
+    ]
+  },
+  "invariants": [
+    "No hidden finals",
+    "Append-only logging",
+    "Validator separation: AI for facts, human for governance"
+  ],
+  "outputs": {
+    "decision": "What is true / allowed / next (bounded, auditable).",
+    "bounded_next_actions": [
+      "Run human-governed RECOGNITION",
+      "Do not run AI workflow for governance"
+    ]
+  },
+  "signatures": {
+    "human_governor": "MM"
+  }
+}
