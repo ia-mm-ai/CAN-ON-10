@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "third-space.heartbeat.schema.v1",
+  "title": "Third Space Heartbeat Artifact v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "state", "scope", "created_at", "inputs", "invariants", "outputs", "signatures"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^HB-[A-Z0-9-]{3,60}$" },
+    "state": { "type": "string", "enum": ["HOLD"] },
+    "scope": { "type": "string", "enum": ["SYSTEM"] },
+    "created_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$" },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["human_intent", "system_data_refs", "constraints"],
+      "properties": {
+        "human_intent": { "type": "string", "minLength": 3, "maxLength": 2000 },
+        "system_data_refs": { "type": "array", "items": { "type": "string", "minLength": 3, "maxLength": 200 }, "minItems": 1, "maxItems": 16 },
+        "constraints": { "type": "array", "items": { "type": "string", "minLength": 2, "maxLength": 200 }, "minItems": 1, "maxItems": 16 }
+      }
+    },
+    "invariants": { "type": "array", "items": { "type": "string", "minLength": 2, "maxLength": 200 }, "minItems": 1, "maxItems": 16 },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "bounded_next_actions"],
+      "properties": {
+        "decision": { "type": "string", "enum": ["No-op"] },
+        "bounded_next_actions": { "type": "array", "items": { "type": "string" }, "maxItems": 8 }
+      }
+    },
+    "signatures": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["human_governor"],
+      "properties": {
+        "human_governor": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,32}$" }
+      }
+    }
+  }
+}
