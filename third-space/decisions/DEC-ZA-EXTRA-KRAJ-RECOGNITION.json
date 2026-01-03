@@ -1,6 +1,6 @@
 {
   "id": "DEC-ZA-EXTRA-KRAJ-001",
-  "state": "DECIDE",
+  "state": "COMMIT",
   "scope": "EVENT_RECOGNITION",
   "created_at": "2026-01-02T04:59:00Z",
   "inputs": {
