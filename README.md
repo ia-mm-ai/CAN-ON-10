@@ -15,18 +15,12 @@ It defines the invariant rule that **all irreversible transitions must pass thro
 
 ---
 
-## What IAM.MAI Is Not
-
-See: `meta/non-goals.md`
-
----
-
 ## Structure
 
-- `/docs` — Canonical documentation (PDFs, formal specs)
-- `/ledger` — Immutable presence / event lineage (ZA EXTRA KRAJ)
-- `/third-space` — Decision traces (evidence, not governance)
-- `/meta` — Scope boundaries
+- `/docs` — Canonical documentation
+- `/ledger` — Immutable presence
+- `/third-space` — Decision traces 
+- `.github/workflows` — Enforcements / automations
 
 ---
 
