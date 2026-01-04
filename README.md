@@ -1,7 +1,5 @@
 # IAM.MAI
 
-# IAM.MAI
-
 **IAM.MAI is a Continuity State Machine.**
 
 It defines the invariant rule that **all irreversible transitions must pass through a stabilizing state (⊙ HOLD)** before they can be finalized, invalidated, or evolved.
