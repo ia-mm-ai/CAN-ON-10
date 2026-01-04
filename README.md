@@ -1,19 +1,48 @@
-# IAMMAI
+# IAM.MAI
 
-**IAMMAI** is a Continuity State Machine.  
-It defines the lawful transitions for irreversible states.
+# IAM.MAI
 
-At the center is ⊙ - a neutral hold required before Finalize, Invalidate, or Evolve.  
-IAMMAI = TM × CSM.  
-Not metaphor. Not framework. Law.
+**IAM.MAI is a Continuity State Machine.**
 
-This repository contains the sealed kernel document.
+It defines the invariant rule that **all irreversible transitions must pass through a stabilizing state (⊙ HOLD)** before they can be finalized, invalidated, or evolved.
 
-**No commits may bypass ⊙.**  
-**No dark finals.**  
-**No lineage loss.**
+---
 
-> IAMMAI is the universal system frame.  
-> UPAD is the first vessel.
+## What IAM.MAI Is
 
-[PDF: IAMMAI 1.1](./1.1%20IAMMAI%202.pdf)
+- A formal continuity law
+- A state machine for irreversible change
+- A reference architecture for preventing collapse
+- A public, CC0 specification
+
+---
+
+## What IAM.MAI Is Not
+
+See: `meta/non-goals.md`
+
+---
+
+## Structure
+
+- `/docs` — Canonical documentation (PDFs, formal specs)
+- `/ledger` — Immutable presence / event lineage (ZA EXTRA KRAJ)
+- `/third-space` — Decision traces (evidence, not governance)
+- `/meta` — Scope boundaries
+
+---
+
+## Proven Lineage
+
+This repository includes the first real-world finalized continuity instance:
+
+**ZA EXTRA KRAJ**  
+Presence verified.  
+Decision finalized.  
+Ledger preserved.
+
+---
+
+## License
+
+CC0 — Truth has no owner.
