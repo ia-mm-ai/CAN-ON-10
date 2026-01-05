@@ -1,0 +1,55 @@
+name: HIT2 — Terminology Lock
+
+on:
+  pull_request:
+    branches: ["IAMMAI"]
+
+permissions:
+  contents: read
+
+jobs:
+  terminology-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history for diff)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enforce terminology / index updates when interface docs change
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -e
+          python - <<'PY'
+          import os, subprocess, sys
+
+          base = os.environ["BASE_SHA"]
+          head = os.environ["HEAD_SHA"]
+
+          changed = subprocess.check_output(
+              ["git","diff","--name-only",base,head],
+              text=True
+          ).splitlines()
+
+          changed_set = set(changed)
+
+          # Interface files that imply terminology awareness
+          interface_changed = any(p.startswith("docs/interface/") and p.endswith(".md") for p in changed_set)
+          terminology_touched = "docs/interface/TERMINOLOGY.md" in changed_set
+          index_touched = "docs/INDEX.md" in changed_set
+
+          # If interface changed, require terminology to be touched in same PR
+          if interface_changed and not terminology_touched:
+              print("FAIL: docs/interface changed but docs/interface/TERMINOLOGY.md was not updated.")
+              sys.exit(1)
+
+          # If any docs/ file added/removed/renamed, require docs/INDEX.md update
+          docs_changed = any(p.startswith("docs/") for p in changed_set)
+          if docs_changed and not index_touched:
+              print("FAIL: docs/ changed but docs/INDEX.md was not updated.")
+              sys.exit(1)
+
+          print("PASS: Terminology and index constraints satisfied.")
+          PY
