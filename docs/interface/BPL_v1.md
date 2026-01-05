@@ -1,244 +1,325 @@
 # BUDDY PROTOCOL LANGUAGE (BPL)
-## v1.0 — Official Specification (FINAL)
+## v1.1 — Interface Grammar for Human ↔ AI Co-Agency
 
-**Status:** FINAL (v1.0)  
-**Evolution rule:** Additive-only. No breaking changes.  
-**Layer:** Interface / Interpretation Control (pre-reasoning)  
+**Status:** ACTIVE  
+**Evolution rule:** Additive-only (no breaking changes)  
+**Layer:** Interface / Interpretation Control  
 **Applies to:** Human ↔ AI co-agency  
-**Value interaction:** None (zero)
-
-BPL is **not** a programming language, governance document, or execution protocol.  
-It is a deterministic interaction language whose sole purpose is to **constrain interpretation before reasoning or execution occurs**.
+**Value interaction:** None  
 
 ---
 
-## 1. Purpose
+## 0. Normative Intent (LOCK)
 
-BPL (Buddy Protocol Language) defines a strict but lightweight way for a human architect and an AI system to exchange **intent, context, authority, and constraints** without ambiguity or drift.
+BPL is a **protocol-level interface grammar** whose sole function is to
+**constrain interpretation before reasoning occurs**.
 
-It enforces two layers:
+It exists to prevent:
+- ambiguity
+- drift
+- authority bleed
+- narrative substitution
+- implicit intent inference
 
-1. **Signal Layer** — exactly one structured header line (machine-parseable intent)
-2. **Payload Layer** — free-form content bound by the signal
+BPL does **not**:
+- execute actions
+- decide truth
+- classify interactions
+- infer identity
+- perform governance
 
-BPL exists to:
-- Separate **intent** from **content**
-- Stabilize co-agency (prevent drift)
-- Prevent hallucination and authority bleed
-- Preserve continuity across sessions and threads
-
----
-
-## 2. High-Level Structure
-
-A BPL message has the following form:
-
-1) **SignalLine**  
-2) **PayloadBlock** (optional)
-
-Example:
-BUDDY-CCD-U-04012026 [MODE=INTEG; FIELD=OPEN; STRICT=ON; DEPTH=DEEP; LENS=SYS]
-
-Everything starts with **exactly one SignalLine**.
+**BPL is strictly upstream of reasoning.**
 
 ---
 
-## 3. Lexical Rules
+## 1. What BPL Is (and Is Not)
 
-### 3.1 Character set
-- Payload: UTF-8 (any language; emojis allowed)
-- Keywords / keys: ASCII
+### 1.1 What BPL Is
 
-### 3.2 Case
-- Keys / keywords: UPPERCASE
-- Values: case-insensitive unless enumerated
+BPL is:
+- a declarative control surface
+- a deterministic header grammar
+- a pre-reasoning constraint layer
+- a human-writable, machine-parsable interface
 
-### 3.3 Whitespace
-- Signal line: single spaces recommended
-- Payload: free
+Analogous to:
+- HTTP headers (not payloads)
+- POSIX flags (not programs)
+- ABI contracts (not implementations)
 
----
+**BPL defines *how* input is processed — never *what* the answer is.**
 
-## 4. Signal Line
+### 1.2 What BPL Is Not
 
-### 4.1 Grammar
-SignalLine ::= SignalID (WS PropertiesBlock)?
+BPL is not:
+- a prompt
+- a reasoning strategy
+- a conversation format
+- a decision protocol
+- a governance system
 
-### 4.2 SignalID
-SignalID ::= “BUDDY” “-” ChannelCode “-” ActorCode “-” Token
-#### ChannelCode (3 letters)
-
-- **CCD** — Cognitive Container Dialogue  
-- **OPS** — Operations / procedures / execution threads  
-- **SYS** — Systems / architecture / protocols  
-- **EXP** — Experiments / sandboxing  
-
-#### ActorCode
-
-- **U** — User (human initiator)  
-- **A** — Assistant (AI initiator, rare)  
-- **X** — External actor being quoted  
-
-#### Token
-
-Free-form identifier controlled by the user.  
-Recommended formats:
-- `DDMMHHMM`
-- `DDMMYYHHMM`
-- Optional suffix: `-CUSTOM`
-
-Examples:
-- `04012026`
-- `05121746-POP`
-- `02121200-MARINA`
+BPL never replaces:
+- IAMMAI (transition legitimacy)
+- IA-MM-AI (interaction coherence)
+- Kentra (truth anchoring)
+- Third Space (meta-governance)
 
 ---
 
-## 5. Properties Block
+## 2. Structural Overview
 
-### 5.1 Grammar
-PropertiesBlock ::= “[” Property (”;” Property)* “]”
-Property ::= KEY “=” VALUE
-### 5.2 Standard properties (normative)
+A BPL message has **two layers**:
 
-#### MODE — cognitive stance (how to process)
+1. **Signal Header** — normative, machine-interpretable  
+2. **Payload** — free-form, human-native content  
 
-- **INTEG** — integrate, unify, surface invariants  
-- **ANALYZE** — debug, find failure modes  
-- **DESIGN** — architect systems, protocols  
-- **EXEC** — produce ready-to-use artifacts  
-- **EXTRACT** — extract facts only  
-- **REFLECT** — structural mirroring (no persuasion)  
-- **DUMP** — minimal processing / reformat  
-
-#### FIELD — container state (continuity control)
-
-- **OPEN** — maintain continuity  
-- **HOLD** — freeze evolution (no forward moves)  
-- **CLOSE** — explicitly end the field  
-
-#### STRICT — hallucination tolerance
-
-- **ON** — no speculation; declare `UNKNOWN` if unsure  
-- **OFF** — normal reasoning allowed  
-
-#### DEPTH — verbosity
-
-- **SNAP** — one screen  
-- **MID** — default  
-- **DEEP** — full architecture  
-
-#### LENS — interpretive frame (what lens to privilege)
-
-- **CEO** — risk, leverage, sequencing  
-- **OPS** — procedures, timelines  
-- **SYS** — states, transitions, invariants  
-- **HUMAN** — load, boundaries, communication  
-- **MARKET** — narrative, positioning  
-
-Multiple lenses may be combined: `CEO+SYS`
-
-#### PRIORITY
-
-- **P0** — immediate crisis  
-- **P1** — high importance  
-- **P2** — normal work  
-- **P3** — background  
-
-#### SCOPE
-
-Free-form domain identifier (e.g., `POP_LEDGER`, `THIRD_SPACE`, `UPAD_V2_ARCH`)
-
-#### VERSION (optional)
-
-Internal versioning only.
+Only the **Signal Header** has protocol authority.
 
 ---
 
-## 6. Payload Layer
+## 3. Signal Header — Canonical Form
 
-Everything after the SignalLine is payload.
+### 3.1 Header Syntax (Required)
+BUDDY--- []
+This line **must appear first**.  
+Everything after it is payload.
 
-### 6.1 Free text
-Unstructured, human-native text.
+### 3.2 Header Components
 
-### 6.2 Inline Directives (optional)
+#### CHANNEL — Routing Domain (WHERE it is processed)
 
-Inline directives MUST be on their own line and UPPERCASE:
+Defines which cognitive container is active.
 
-- `#TASK` — concrete action  
-- `#CONTEXT` — background only  
-- `#ASK` — explicit questions  
-- `#MEMO` — store / export  
-- `#END` — end of important content  
+Normative values:
+- `CCD` — Cognitive / Continuity Design
+- `SYS` — Systems & architecture
+- `OPS` — Operational execution
+- `EXP` — Experimental / sandbox
 
----
+> CHANNEL selects the **container**, not the reasoning style.
 
-## 7. Semantics (Behavioral Contract)
+#### ACTOR — Initiator (WHO asserts the frame)
 
-Given a valid BPL message, the AI must:
+Normative values:
+- `U` — Human initiator
+- `A` — AI initiator (rare)
+- `X` — External quoted source
 
-1) Parse the SignalLine first  
-2) Configure behavior strictly from properties  
-3) Treat the payload as one coherent field  
+#### TOKEN — Correlation Identifier
 
-### STRICT=ON rules (hard)
+Free-form, opaque, non-semantic identifier.
 
-- Unknowns must be declared explicitly as `UNKNOWN`
-- No soothing or coaching language
-- No invented facts, tools, or claims
-- Conflicts must be reported as `CONSTRAINT_CONFLICT`
-- No “helpfulness substitution” (no action not requested)
+Used only for:
+- traceability
+- grouping
+- reference
 
----
-
-## 8. Formal Grammar (relaxed EBNF)
-Message ::= SignalLine NEWLINE PayloadBlock?
-SignalLine ::= “BUDDY” “-” ChannelCode “-” ActorCode “-” Token (WS PropertiesBlock)?
-ChannelCode ::= UPPER{3}
-ActorCode ::= “U” | “A” | “X”
-Token ::= (LETTER | DIGIT | “-”){1,32}
-PropertiesBlock ::= “[” Property (”;” Property)* “]”
-Property ::= KEY “=” VALUE
-PayloadBlock ::= (PayloadLine NEWLINE)*
-PayloadLine ::= UTF8_TEXT
+**TOKEN must never encode meaning or authority.**
 
 ---
 
-## 9. Canonical Examples
+## 4. Properties Block — Control Axes
 
-### Integration
-
-BUDDY-CCD-U-05121746 [MODE=INTEG; FIELD=OPEN; STRICT=ON; DEPTH=DEEP; LENS=SYS]
-Integrate BPL into the overall architecture.
-
-### Crisis ops
-
-BUDDY-OPS-U-05121740 [MODE=ANALYZE; FIELD=OPEN; STRICT=ON; PRIORITY=P0]
-#CONTEXT Payments succeeded, tickets missing.
-#ASK Define immediate containment.
-
-### Closing a field
-
-BUDDY-CCD-U-05121756 [MODE=REFLECT; FIELD=CLOSE]
-Field closed. Store invariants only.
+The properties block declares **orthogonal axes**:
+[KEY=VALUE; KEY=VALUE; …]
+Each axis answers **exactly one question**.
 
 ---
 
-## 10. Canonical Definition
+## 5. Core Axes (Normative)
 
-BPL is a translation-layer cognitive interface protocol that formalizes how intent, context, authority, and constraints are signaled between a human and an AI, ensuring bounded interpretation and continuity before any reasoning or execution occurs.
+These axes **bind behavior**.
+
+### 5.1 MODE — Cognitive Stance (HOW to think)
+
+MODE defines **method and stance**, not topic.
+
+Canonical values:
+- `ARCH` — architecture & invariants
+- `CCD` — cognition & continuity design
+- `SYS` — system mechanics
+- `OPS` — operational execution
+- `DESIGN` — product / experience design
+- `INTEG` — integration & synthesis
+- `MAP` — structural cartography
+- `META` — language about language
+
+**Invariant:** MODE is a stance, never a domain.
 
 ---
 
-## 11. Design Invariants (LOCK)
+### 5.2 INTENT — Output Shape (WHAT to produce)
 
-- BPL never executes  
-- BPL never carries value  
-- BPL never decides truth  
-- BPL constrains interpretation upstream  
-- All evolution is additive  
+INTENT defines the **form of output**, not how it is derived.
+
+Canonical values:
+- `DEFINE`
+- `MAP`
+- `DESIGN`
+- `SPEC`
+- `INTEG`
+- `SIMPLIFY`
+- `DIAGNOSE`
+- `SOLVE`
+- `STORY`
+- `EXTRACT`
+- `CRITIQUE`
+- `TRANSLATE`
+
+**Invariant:** INTENT describes work type, not subject matter.
 
 ---
 
-**END — BPL v1.0 (FINAL)**
+### 5.3 LAYER — Abstraction Altitude (WHERE in the stack)
+
+Defines the abstraction level.
+
+Canonical values:
+- `GRAMMAR`
+- `SPEC`
+- `SYSTEM`
+- `OBJECT`
+- `OPS`
+- `STORY`
+- `META`
+
+Same MODE + INTENT at different LAYER values yields different valid outputs.
+
+---
+
+### 5.4 STRICT — Constraint Tightness
+
+Controls tolerance for deviation.
+
+Values:
+- `OFF` — exploratory
+- `SOFT` — guided flexibility
+- `ON` — literal, no drift
+
+When `STRICT=ON`, the system:
+- must not infer missing intent
+- must not widen scope
+- must not soften tone
+
+---
+
+### 5.5 FIELD — Continuity State
+
+Defines temporal continuity.
+
+Values:
+- `OPEN` — normal continuity
+- `HOLD` — freeze evolution
+- `CLOSE` — terminate field
+
+FIELD governs **continuity**, not reasoning style.
+
+---
+
+## 6. Descriptive Axes (Non-Binding)
+
+These axes **do not enforce behavior**.
+
+### 6.1 PRES — Presence Orientation
+
+Values:
+- `ON`
+- `MID`
+- `OFF`
+
+Reading hint only.
+
+### 6.2 RES — Resonance Level
+
+Values:
+- `LOW`
+- `MID`
+- `HIGH`
+
+Alignment descriptor only.
+
+---
+
+## 7. Required Axes (Compliance Rule)
+
+A **valid BPL header MUST include**:
+- MODE
+- INTENT
+- LAYER
+- STRICT
+- FIELD
+
+Missing required axes:
+- MUST produce `UNKNOWN`, or
+- MUST request clarification (unless `STRICT=ON`)
+
+---
+
+## 8. Behavioral Contract
+
+Given a valid BPL header:
+1. Header is parsed **before** payload
+2. Reasoning is configured **only** from header
+3. Payload inherits all constraints
+4. No undeclared axis may be assumed
+
+---
+
+## 9. 5-Second Construction Recipe (Normative Aid)
+
+Ask yourself, in order:
+
+1. **Where am I working?** → CHANNEL  
+2. **How should the system think?** → MODE  
+3. **What do I want produced?** → INTENT  
+4. **At what abstraction?** → LAYER  
+5. **How strict must it be?** → STRICT  
+6. **Is evolution allowed?** → FIELD  
+
+Then write:
+BUDDY--U- [MODE=…; INTENT=…; LAYER=…; STRICT=…; FIELD=…]
+If you can’t answer one question → **you are not ready to speak yet**.
+
+---
+
+## 10. Invariants (LOCKED)
+
+- BPL never executes
+- BPL never decides truth
+- BPL never assigns identity
+- BPL never performs governance
+- BPL only constrains interpretation
+- Grammar evolution is additive only
+
+Violation of any invariant invalidates compliance.
+
+---
+
+## 11. Canonical Templates (Non-Normative)
+
+**Minimal safe default**
+BUDDY-CCD-U- [MODE=INTEG; INTENT=DEFINE; LAYER=SYSTEM; STRICT=ON; FIELD=OPEN]
+
+**Specification work**
+BUDDY-SYS-U- [MODE=ARCH; INTENT=SPEC; LAYER=SPEC; STRICT=ON; FIELD=OPEN]
+
+**Crisis diagnosis**
+BUDDY-OPS-U- [MODE=OPS; INTENT=DIAGNOSE; LAYER=OPS; STRICT=ON; FIELD=OPEN]
+
+**Pure reflection**
+BUDDY-CCD-U- [MODE=META; INTENT=MAP; LAYER=META; STRICT=ON; FIELD=OPEN]
+
+---
+
+## 12. Compliance Test (Mental)
+
+A header is compliant if:
+- each axis answers exactly one question
+- no axis overlaps responsibility
+- removing payload does not invalidate the header
+
+**If true → grammar is valid.**
+
+---
+
+END — **BPL v1.1**
