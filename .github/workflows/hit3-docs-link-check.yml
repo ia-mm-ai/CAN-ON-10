@@ -1,0 +1,80 @@
+name: HIT3 — Docs Link Check
+
+on:
+  pull_request:
+    branches: ["IAMMAI"]
+
+permissions:
+  contents: read
+
+jobs:
+  docs-link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate relative links in /docs markdown
+        run: |
+          set -e
+          python - <<'PY'
+          import os, re, glob, sys
+          from urllib.parse import urlparse
+
+          md_files = glob.glob("docs/**/*.md", recursive=True)
+          if not md_files:
+              print("No docs markdown found. PASS.")
+              sys.exit(0)
+
+          # Matches markdown links: [text](target)
+          link_re = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
+
+          def is_external(t: str) -> bool:
+              t = t.strip()
+              if t.startswith("#"):
+                  return True
+              u = urlparse(t)
+              return u.scheme in ("http", "https", "mailto")
+
+          bad = False
+          for md in sorted(md_files):
+              with open(md, "r", encoding="utf-8") as f:
+                  txt = f.read()
+
+              for target in link_re.findall(txt):
+                  target = target.strip()
+
+                  # ignore external, anchors, mailto
+                  if is_external(target):
+                      continue
+
+                  # ignore empty
+                  if not target:
+                      continue
+
+                  # strip fragment
+                  target_no_frag = target.split("#", 1)[0].strip()
+                  if not target_no_frag:
+                      continue
+
+                  # resolve relative to md file location
+                  base_dir = os.path.dirname(md)
+                  resolved = os.path.normpath(os.path.join(base_dir, target_no_frag))
+
+                  # allow directories (must exist)
+                  if os.path.isdir(resolved):
+                      if not os.path.exists(resolved):
+                          print(f"BAD: {md} -> {target} (resolved dir missing: {resolved})")
+                          bad = True
+                      continue
+
+                  # allow files
+                  if not os.path.exists(resolved):
+                      print(f"BAD: {md} -> {target} (resolved missing: {resolved})")
+                      bad = True
+
+          if bad:
+              sys.exit(1)
+
+          print("PASS: All relative docs links resolve.")
+          PY
