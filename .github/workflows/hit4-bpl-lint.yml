@@ -1,0 +1,70 @@
+name: HIT4 — BPL Lint
+
+on:
+  pull_request:
+    branches: ["IAMMAI"]
+
+permissions:
+  contents: read
+
+jobs:
+  bpl-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Lint BPL spec + examples (header shape + required axes)
+        run: |
+          set -e
+          python - <<'PY'
+          import os, re, sys
+
+          # Accept either BPL file location if you keep both
+          candidates = [
+              "docs/interface/BPL_v1.md",
+              "docs/BPL_v1.1.md",
+              "docs/interface/BPL_v1.1.md"
+          ]
+          bpl_path = next((p for p in candidates if os.path.exists(p)), None)
+          if not bpl_path:
+              print("FAIL: No BPL spec found in expected locations.")
+              sys.exit(1)
+
+          with open(bpl_path, "r", encoding="utf-8") as f:
+              txt = f.read()
+
+          # Required conceptual anchors (prevents accidental truncation / drift)
+          required_phrases = [
+              "Signal Header",
+              "Properties Block",
+              "MODE",
+              "INTENT",
+              "LAYER",
+              "STRICT",
+              "FIELD",
+              "Invariants"
+          ]
+          missing = [p for p in required_phrases if p not in txt]
+          if missing:
+              print("FAIL: BPL spec missing required sections/anchors:", missing)
+              sys.exit(1)
+
+          # Validate canonical header regex appears at least once
+          # BUDDY-<CHANNEL>-<ACTOR>-<TOKEN> [ ... ]
+          header_re = re.compile(r"^BUDDY-(CCD|SYS|OPS|EXP)-(U|A|X)-[A-Za-z0-9_-]+(\s+\[.*\])?\s*$", re.MULTILINE)
+          if not header_re.search(txt):
+              print("FAIL: No valid BPL header example found (BUDDY-CCD-U-... [..]).")
+              sys.exit(1)
+
+          # Ensure required axes appear together in at least one template line
+          template_re = re.compile(
+              r"\[.*MODE=.*;.*INTENT=.*;.*LAYER=.*;.*STRICT=.*;.*FIELD=.*\]",
+              re.IGNORECASE | re.DOTALL
+          )
+          if not template_re.search(txt):
+              print("FAIL: No template includes required axes MODE/INTENT/LAYER/STRICT/FIELD.")
+              sys.exit(1)
+
+          print(f"PASS: BPL lint OK ({bpl_path}).")
+          PY
