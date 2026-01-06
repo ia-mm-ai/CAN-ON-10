@@ -1,11 +1,10 @@
 IAM.MAI - Continuity Transition Legitimacy Protocol
 
-⸻
 
 0. Normative Frame
 
 0.1 Authority
-	•	This document defines IAM.MAI vNext and is canonical 
+	•	This document defines IAM.MAI and is canonical 
 
 0.2 Normative Keywords
 	•	MUST and MUST NOT are normative and enforceable.
@@ -49,7 +48,6 @@ IAM.MAI MUST comply with:
 	•	Regulation variables (bounded, not fixed): coherence, stability, persistence, damping, modulation
 	•	Coupling (conditional, reversible): resonance measurable and reversible
 
-⸻
 
 1. Formal Definition
 
@@ -69,7 +67,6 @@ IAM.MAI MUST NOT:
 	•	compute value / reward / entitlement / economics (PEP responsibility)
 	•	assign identity or identity conditions
 
-⸻
 
 2. Core Model
 
@@ -95,7 +92,6 @@ IAM.MAI MUST NOT:
 	•	IAM.MAI MUST append exactly one lineage entry for every resolved transition.
 	•	A resolution is valid only if the lineage entry is appended and linked to the prior ledger head.
 
-⸻
 
 3. State Machine Specification
 
@@ -220,7 +216,6 @@ E4. Successor Resonance Gate
 	•	if absent/UNKNOWN: EVOLVE MUST NOT occur; admissible resolution is ⊙ HOLD
 	•	if non-measurable or non-reversible: EVOLVE MUST NOT occur; admissible irreversible resolution is INVALIDATE
 
-⸻
 
 4. Temporal Integrity Compliance Mapping
 
@@ -272,7 +267,6 @@ UNKNOWN: measurement definitions, units, and scales for regulation variables are
 
 UNKNOWN: resonance measurement method and reversibility proof are external to IAM.MAI.
 
-⸻
 
 5. Failure Conditions
 
@@ -319,7 +313,6 @@ IAM.MAI MUST resolve as INVALIDATE (only from ⊙HOLD, with lineage appendabilit
 	•	coupling resonance is attested non-measurable or non-reversible
 	•	motion variable fixation is attempted through IAM.MAI
 
-⸻
 
 6. Minimal Machine-Legible Structure
 
