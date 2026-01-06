@@ -77,7 +77,7 @@ IAM.MAI MUST NOT:
 2.2 Lineage Ledger
 	•	For each SubjectRef, IAM.MAI maintains a Lineage Ledger: an ordered, append-only sequence of entries.
 	•	Each entry MUST include (abstract fields; encoding external):
-	•	sentinel = BE2
+	•	protocol_id
 	•	subject_ref
 	•	entry_ref (unique within the ledger)
 	•	prev_entry_ref (references the immediately prior entry, or NULL only for genesis)
