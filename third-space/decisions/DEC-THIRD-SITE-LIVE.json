@@ -1,0 +1,32 @@
+{
+  "id": "DEC-THIRD-SITE-001",
+  "state": "COMMIT",
+  "scope": "SYSTEM_RECOGNITION",
+  "created_at": "2026-01-09T01:20:00Z",
+  "inputs": {
+    "human_intent": "Recognize that third.site is live and operational.",
+    "system_data_refs": [
+      "ledger/pop-ledger.log"
+    ],
+    "constraints": [
+      "No identity mapping",
+      "No economic settlement",
+      "Recognition only"
+    ]
+  },
+  "invariants": [
+    "Append-only",
+    "Fact-first",
+    "HOLD -> DECIDE -> COMMIT"
+  ],
+  "outputs": {
+    "decision": "third.site is live.",
+    "bounded_next_actions": [
+      "Allow references",
+      "Allow linking from future events"
+    ]
+  },
+  "signatures": {
+    "human_governor": "MM"
+  }
+}
