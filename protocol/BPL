@@ -1,0 +1,137 @@
+# BPL — Binding Precondition Layer
+
+Status: CANONICAL  
+Class: Interpretive Precondition  
+Authority: NONE  
+Execution Power: NONE  
+Truth Power: NONE  
+Mutation Rule: Additive-only (via EVOLVE + CANON)
+
+---
+
+## 0. Canonical Statement
+
+BPL governs **whether reasoning is allowed to occur at all**.
+
+It binds interpretation *before* cognition, inference, governance, or execution, and halts the system when inputs are malformed, ambiguous, or semantically overloaded.
+
+If BPL fails, **no reasoning may proceed**.
+
+---
+
+## 1. Purpose (Normative)
+
+BPL exists to answer one question only:
+
+**Is this input admissible for reasoning?**
+
+It prevents:
+- reasoning on ambiguous inputs,
+- intent being inferred from language,
+- authority being smuggled through phrasing,
+- meaning collapsing before constraints are known.
+
+BPL does not decide *what to think*.  
+It decides *whether thinking is permitted*.
+
+---
+
+## 2. Scope (LOCKED)
+
+BPL applies to **all inputs that may trigger reasoning**.
+
+This includes:
+- human language,
+- agent prompts,
+- protocol invocations,
+- governance inputs,
+- system-to-system messages.
+
+BPL does NOT apply to:
+- finalized truth (SPIRAL),
+- immutable records,
+- post-fact narration (22).
+
+BPL is **pre-cognitive**.
+
+---
+
+## 3. Binding Rules (NON-NEGOTIABLE)
+
+An input is **BPL-COMPLIANT** only if all are true:
+
+1. **Single Semantic Frame**
+   - The input does not mix:
+     - fact and value,
+     - decision and truth,
+     - intent and execution.
+
+2. **Declared Scope**
+   - Temporal, protocol, and authority scope are explicit.
+   - No implied scope expansion is allowed.
+
+3. **No Implied Authority**
+   - The input does not presume permission, legitimacy, or right to act.
+
+4. **No Implicit Execution**
+   - Language does not imply that action must follow.
+
+5. **Resolvable Ambiguity**
+   - If ambiguity exists, it is explicitly marked.
+   - Hidden ambiguity is NON-COMPLIANT.
+
+Failure of any rule blocks reasoning.
+
+---
+
+## 4. Effects of BPL Failure (CRITICAL)
+
+If an input is NON-COMPLIANT under BPL:
+
+- reasoning MUST NOT proceed,
+- downstream protocols MUST NOT be invoked,
+- no interpretation may be inferred,
+- the system MUST return UNKNOWN or HALT.
+
+BPL does not repair malformed inputs.  
+It **refuses cognition**.
+
+---
+
+## 5. Relationship to Other Protocols
+
+- **EVENT:** BPL does not open or close time.
+- **IAM.MAI:** BPL does not legitimize irreversibility.
+- **BNK:** BPL does not host presence.
+- **KAPIA:** BPL does not record evidence.
+- **PoP:** BPL does not create truth.
+- **SPIRAL:** BPL does not write history.
+- **ZIVai:** BPL does not regulate capacity.
+- **22:** BPL does not narrate.
+- **THIRD SPACE:** BPL determines whether a decision record may be formed.
+
+BPL sits **before all of them**.
+
+---
+
+## 6. Failure Modes (EXPLICIT)
+
+The following are **NON-COMPLIANT** under BPL:
+
+- ambiguous prompts treated as intent,
+- emotional urgency framed as necessity,
+- questions that smuggle desired outcomes,
+- language that collapses multiple protocol layers,
+- identity inference through wording.
+
+These MUST block reasoning.
+
+---
+
+## 7. Canonical One-Line Definition
+
+BPL is the protocol that decides whether reasoning is allowed to begin.
+
+---
+
+END — BPL.md
