@@ -1,0 +1,164 @@
+# SPIRAL — Immutable History Protocol
+
+Status: CANONICAL  
+Class: Append-Only Memory & Lineage  
+Authority: DERIVED (via IAM.MAI)  
+Execution Power: NONE  
+Identity Power: NONE  
+Mutation Rule: Additive-only (via EVOLVE + CANON)
+
+---
+
+## 0. Canonical Statement
+
+SPIRAL governs **how truth becomes immutable history**.
+
+It defines a single append-only record of finalized facts and legitimized transitions, preserving lineage without allowing rewrite, deletion, or retroactive interpretation.
+
+SPIRAL does not decide truth.  
+SPIRAL records it.
+
+---
+
+## 1. Purpose (Normative)
+
+SPIRAL exists to answer one question only:
+
+**What has irreversibly happened?**
+
+It prevents:
+- history being rewritten,
+- truth being corrected post hoc,
+- decisions masquerading as facts,
+- narrative replacing record.
+
+---
+
+## 2. Scope (LOCKED)
+
+SPIRAL applies **only to finalized outcomes**.
+
+SPIRAL does NOT apply to:
+- interpretation (BPL),
+- live presence (BNK),
+- threshold evidence (KAPIA),
+- capacity signals (ZIVai),
+- narration (22),
+- provisional decisions (THIRD SPACE).
+
+SPIRAL is **post-fact only**.
+
+---
+
+## 3. Append-Only Model (LOCKED)
+
+SPIRAL is strictly append-only.
+
+Allowed operations:
+- APPEND
+
+Forbidden operations:
+- UPDATE
+- DELETE
+- OVERWRITE
+- REORDER
+- REDACT
+
+Any non-append operation is **NON-COMPLIANT**.
+
+---
+
+## 4. Admissible Entries (Closed Set)
+
+SPIRAL MAY contain only records that are:
+- explicitly finalized,
+- IAM.MAI-legitimized,
+- event-scoped.
+
+Admissible record types include:
+- EVENT-LIVE
+- EVENT-CLOSE
+- PoP FINALIZE
+- IAM.MAI FINALIZE
+- KERNEL_DIGEST (optional)
+- EVOLVE lineage records
+
+No other entries are valid.
+
+---
+
+## 5. Record Properties (MANDATORY)
+
+Every SPIRAL record MUST:
+
+- be immutable once written,
+- reference its triggering event,
+- reference its legitimizing IAM.MAI transition,
+- carry a timestamp,
+- be opaque with respect to identity.
+
+SPIRAL records MUST NOT:
+- encode identity,
+- encode intent,
+- encode narrative,
+- encode economic meaning.
+
+---
+
+## 6. Lineage & Evolution
+
+SPIRAL supports **lineage**, not mutation.
+
+Lineage rules:
+- new records MAY reference prior records,
+- references establish ancestry, not correction,
+- EVOLVE produces successor records, not edits.
+
+History grows forward only.
+
+---
+
+## 7. Authority & Power
+
+SPIRAL:
+- does NOT evaluate correctness,
+- does NOT infer meaning,
+- does NOT execute decisions,
+- does NOT trigger protocols.
+
+SPIRAL is **memory, not mind**.
+
+---
+
+## 8. Relationship to Other Protocols
+
+- **EVENT:** SPIRAL records EVENT transitions.
+- **IAM.MAI:** SPIRAL entries are valid only if IAM.MAI-legitimized.
+- **PoP:** PoP truth becomes immutable only when written to SPIRAL.
+- **BNK:** Kernel digests MAY be recorded; kernels never are.
+- **ZIVai:** ZIVai state is never recorded.
+- **22:** Narration is never recorded.
+- **THIRD SPACE:** Decisions may reference SPIRAL; SPIRAL never references decisions.
+
+---
+
+## 9. Failure Modes (EXPLICIT)
+
+The following are **NON-COMPLIANT**:
+
+- writing provisional or reversible state,
+- modifying or deleting records,
+- encoding identity,
+- recording live kernel state,
+- allowing narrative annotations,
+- allowing economic data to imply truth.
+
+---
+
+## 10. Canonical One-Line Definition
+
+SPIRAL is the protocol that records immutable history exactly as it was finalized, and never otherwise.
+
+---
+
+END — SPIRAL.md
