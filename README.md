@@ -1,3 +1,5 @@
+This repo contains instance traces and test vectors. Canonical specs live in CAN-OFF-01.
+
 See:
 - /docs for canonical protocol specs
 - /ledger for immutable records
