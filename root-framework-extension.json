@@ -1,9 +1,0 @@
-{
-  "role": "rootframework_extension",
-  "description": "Canonical protocols for legitimacy and irreversible transitions.",
-  "observed_by": "https://third.site/root.json",
-  "authority": "protocol_only",
-  "mutation": "evolve_only",
-  "status": "upstream_extension",
-  "updated_at": "2026-01-16T14:10:00Z"
-}
