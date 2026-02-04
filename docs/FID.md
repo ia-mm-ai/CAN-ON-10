@@ -137,18 +137,24 @@ FID is identity **without ownership**.
 
 6. LIFECYCLE
 
-1. Initialize  
-   RF created; weights neutral.
+The FID lifecycle follows an IN. HOLD. OUT. pattern:
 
+**IN** — Data Reception
+1. Initialize  
+   RF created; weights neutral; ready to receive.
+
+**HOLD** — Observation
 2. HOLD (mandatory)  
    No classification until recurrence detected.
 
+**OUT** — Processing & Emission
 3. Interpret  
    Deltas computed; pattern stabilizes.
 
 4. Emit  
    Single FID output produced.
 
+**CLEANUP**
 5. Dissolve  
    RF destroyed; no memory remains.
 
